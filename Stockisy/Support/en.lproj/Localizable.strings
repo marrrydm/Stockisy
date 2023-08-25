@@ -1,0 +1,15 @@
+"title.onboarding1" = "Improve the overall experience of the app";
+"content.onboaring1" = 'Select "Allow Tracking" on the next screen to minimize how often ads appear';
+"title.onboarding2" = "Your feedback matters to us";
+"content.onboaring2" = "We value and carefully analyze all the reviews and comments we receive";
+"name1" = "Park Ji Son";
+"name2" = "Abram Jefferson";
+"comment1" = "This app has completely transformed my trading experience. Highly recommended!";
+"comment2" = "Its user-friendly interface and extensive features make it the best choice. Great job!";
+"title.onboarding3" = "Turn on notifications";
+"content.onboaring3" = "Stay tuned with our trading ideas and real-time signals";
+"onboarding.nextButton" = "Continue";
+
+"tabbar.edu" = "Education";
+"tabbar.tools" = "Tools";
+"tabbar.settings" = "Settings";

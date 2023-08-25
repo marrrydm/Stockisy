@@ -1,5 +1,5 @@
 import AppsFlyerLib
-//import OneSignal
+import OneSignal
 import UIKit
 
 @main
@@ -13,10 +13,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         NotificationCenter.default.addObserver(self, selector: NSSelectorFromString("sendLaunch"), name: UIApplication.didBecomeActiveNotification, object: nil)
 
-//        OneSignal.setLogLevel(.LL_VERBOSE, visualLevel: .LL_NONE)
-//        OneSignal.initWithLaunchOptions(launchOptions)
-//
-//        OneSignal.setAppId("set")
+        OneSignal.setLogLevel(.LL_VERBOSE, visualLevel: .LL_NONE)
+        OneSignal.initWithLaunchOptions(launchOptions)
+
+        OneSignal.setAppId("set")
 
         return true
     }
