@@ -31,7 +31,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        let educationController = EducationController()
+        let educationController = UINavigationController(rootViewController: EducationController())
         let educationControllerItem = UITabBarItem(title: "tabbar.edu".localize(), image: UIImage(named: "TabBaredu")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "TabBaredu_selected")?.withRenderingMode(.alwaysOriginal))
 
         educationController.tabBarItem = educationControllerItem

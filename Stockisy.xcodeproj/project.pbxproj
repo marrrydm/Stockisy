@@ -28,6 +28,9 @@
 		F816EC722A98E6C900DCC0C4 /* EducationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F816EC712A98E6C900DCC0C4 /* EducationController.swift */; };
 		F816EC752A98E71F00DCC0C4 /* ToolsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F816EC742A98E71F00DCC0C4 /* ToolsController.swift */; };
 		F816EC782A98E73B00DCC0C4 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F816EC772A98E73B00DCC0C4 /* SettingsController.swift */; };
+		F86FDA5A2A9CA3970026092B /* QuizController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86FDA592A9CA3970026092B /* QuizController.swift */; };
+		F86FDA5D2A9CA3B60026092B /* ResultController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86FDA5C2A9CA3B60026092B /* ResultController.swift */; };
+		F86FDA622A9CA4620026092B /* LessonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86FDA612A9CA4620026092B /* LessonController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +81,9 @@
 		F816EC712A98E6C900DCC0C4 /* EducationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationController.swift; sourceTree = "<group>"; };
 		F816EC742A98E71F00DCC0C4 /* ToolsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolsController.swift; sourceTree = "<group>"; };
 		F816EC772A98E73B00DCC0C4 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
+		F86FDA592A9CA3970026092B /* QuizController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizController.swift; sourceTree = "<group>"; };
+		F86FDA5C2A9CA3B60026092B /* ResultController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultController.swift; sourceTree = "<group>"; };
+		F86FDA612A9CA4620026092B /* LessonController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,6 +212,8 @@
 		F816EC702A98E6C000DCC0C4 /* Education */ = {
 			isa = PBXGroup;
 			children = (
+				F86FDA5E2A9CA3C50026092B /* Lessons */,
+				F86FDA5B2A9CA3AA0026092B /* Quiz */,
 				F816EC712A98E6C900DCC0C4 /* EducationController.swift */,
 			);
 			path = Education;
@@ -225,6 +233,23 @@
 				F816EC772A98E73B00DCC0C4 /* SettingsController.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		F86FDA5B2A9CA3AA0026092B /* Quiz */ = {
+			isa = PBXGroup;
+			children = (
+				F86FDA592A9CA3970026092B /* QuizController.swift */,
+				F86FDA5C2A9CA3B60026092B /* ResultController.swift */,
+			);
+			path = Quiz;
+			sourceTree = "<group>";
+		};
+		F86FDA5E2A9CA3C50026092B /* Lessons */ = {
+			isa = PBXGroup;
+			children = (
+				F86FDA612A9CA4620026092B /* LessonController.swift */,
+			);
+			path = Lessons;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -385,14 +410,17 @@
 				F816EC782A98E73B00DCC0C4 /* SettingsController.swift in Sources */,
 				F816EC532A98CBCB00DCC0C4 /* OnboardingSecond.swift in Sources */,
 				F816EC452A98B0F700DCC0C4 /* OnboardingModel.swift in Sources */,
+				F86FDA5A2A9CA3970026092B /* QuizController.swift in Sources */,
 				F816EC512A98BC4B00DCC0C4 /* OnboardingFirst.swift in Sources */,
 				F816EC582A98DB6600DCC0C4 /* TabBarController.swift in Sources */,
 				F816EC332A989A1900DCC0C4 /* LoadController.swift in Sources */,
 				F816EC2F2A989A1900DCC0C4 /* AppDelegate.swift in Sources */,
 				F816EC752A98E71F00DCC0C4 /* ToolsController.swift in Sources */,
 				F816EC722A98E6C900DCC0C4 /* EducationController.swift in Sources */,
+				F86FDA622A9CA4620026092B /* LessonController.swift in Sources */,
 				F816EC312A989A1900DCC0C4 /* SceneDelegate.swift in Sources */,
 				F816EC552A98DA8E00DCC0C4 /* OnboardingThird.swift in Sources */,
+				F86FDA5D2A9CA3B60026092B /* ResultController.swift in Sources */,
 				F816EC4F2A98B78100DCC0C4 /* SupportFile.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
