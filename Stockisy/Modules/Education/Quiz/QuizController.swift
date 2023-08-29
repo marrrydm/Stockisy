@@ -1,5 +1,9 @@
 import UIKit
 
+protocol ResultDelegate: AnyObject {
+    func updateQuiz(result: Int, title: String?)
+}
+
 class QuizController: UIViewController, UIScrollViewDelegate {
     private let scrollView: UIScrollView = {
         let view = UIScrollView()
@@ -47,7 +51,9 @@ class QuizController: UIViewController, UIScrollViewDelegate {
         let view = UIButton()
         view.backgroundColor = UIColor(red: 0.162, green: 0.189, blue: 0.292, alpha: 1)
         view.layer.cornerRadius = 10
-//        viewTest.addTarget(self, action: #selector(btnClickCheck), for: .touchUpInside)
+        view.layer.borderWidth = 0
+        view.layer.borderColor = UIColor(red: 0, green: 0.478, blue: 1, alpha: 1).cgColor
+        view.addTarget(self, action: #selector(btnClickCheck), for: .touchUpInside)
         view.tag = 0
 
         return view
@@ -57,7 +63,9 @@ class QuizController: UIViewController, UIScrollViewDelegate {
         let view = UIButton()
         view.backgroundColor = UIColor(red: 0.162, green: 0.189, blue: 0.292, alpha: 1)
         view.layer.cornerRadius = 10
-//        viewTest.addTarget(self, action: #selector(btnClickCheck), for: .touchUpInside)
+        view.layer.borderWidth = 0
+        view.layer.borderColor = UIColor(red: 0, green: 0.478, blue: 1, alpha: 1).cgColor
+        view.addTarget(self, action: #selector(btnClickCheck), for: .touchUpInside)
         view.tag = 1
 
         return view
@@ -67,7 +75,9 @@ class QuizController: UIViewController, UIScrollViewDelegate {
         let view = UIButton()
         view.backgroundColor = UIColor(red: 0.162, green: 0.189, blue: 0.292, alpha: 1)
         view.layer.cornerRadius = 10
-//        viewTest.addTarget(self, action: #selector(btnClickCheck), for: .touchUpInside)
+        view.layer.borderWidth = 0
+        view.layer.borderColor = UIColor(red: 0, green: 0.478, blue: 1, alpha: 1).cgColor
+        view.addTarget(self, action: #selector(btnClickCheck), for: .touchUpInside)
         view.tag = 2
 
         return view
@@ -77,7 +87,9 @@ class QuizController: UIViewController, UIScrollViewDelegate {
         let view = UIButton()
         view.backgroundColor = UIColor(red: 0.162, green: 0.189, blue: 0.292, alpha: 1)
         view.layer.cornerRadius = 10
-//        viewTest.addTarget(self, action: #selector(btnClickCheck), for: .touchUpInside)
+        view.layer.borderWidth = 0
+        view.layer.borderColor = UIColor(red: 0, green: 0.478, blue: 1, alpha: 1).cgColor
+        view.addTarget(self, action: #selector(btnClickCheck), for: .touchUpInside)
         view.tag = 3
 
         return view
@@ -134,15 +146,46 @@ class QuizController: UIViewController, UIScrollViewDelegate {
         nextButton.setTitleColor(.white, for: .normal)
         nextButton.setTitle("Continue".localize(), for: .normal)
         nextButton.titleLabel?.font = .systemFont(ofSize: 17, weight: .semibold)
-//        nextButton.addTarget(self, action: #selector(tapButtonNext), for: .touchUpInside)
+        nextButton.alpha = 0.5
+        nextButton.addTarget(self, action: #selector(tapButtonNext), for: .touchUpInside)
 
         return nextButton
     }()
 
-    private var lessonsArray: [(String, String, String, String, Int)] =
+    private var lessonsArray: [([String], [[String]], [Int], Int)] =
     [
+        (["qiestion1.1".localize(), "qiestion1.2".localize(), "qiestion1.3".localize(), "qiestion1.4".localize(), "qiestion1.5".localize()],
+         [["answer1.1.1".localize(), "answer1.1.2".localize(), "answer1.1.3".localize(), "answer1.1.4".localize()],
+          ["answer1.2.1".localize(), "answer1.2.2".localize(), "answer1.2.3".localize(), "answer1.2.4".localize()],
+          ["answer1.3.1".localize(), "answer1.3.2".localize(), "answer1.3.3".localize(), "answer1.3.4".localize()],
+          ["answer1.4.1".localize(), "answer1.4.2".localize(), "answer1.4.3".localize(), "answer1.4.4".localize()],
+          ["answer1.5.1".localize(), "answer1.5.2".localize(), "answer1.5.3".localize(), "answer1.5.4".localize()]],
+         [3, 2, 2, 0, 3], 0),
         
+        (["qiestion2.1".localize(), "qiestion2.2".localize(), "qiestion2.3".localize(), "qiestion2.4".localize(), "qiestion2.5".localize()],
+         [["answer2.1.1".localize(), "answer2.1.2".localize(), "answer2.1.3".localize(), "answer2.1.4".localize()],
+          ["answer2.2.1".localize(), "answer2.2.2".localize(), "answer2.2.3".localize(), "answer2.2.4".localize()],
+          ["answer2.3.1".localize(), "answer2.3.2".localize(), "answer2.3.3".localize(), "answer2.3.4".localize()],
+          ["answer2.4.1".localize(), "answer2.4.2".localize(), "answer2.4.3".localize(), "answer2.4.4".localize()],
+          ["answer2.5.1".localize(), "answer2.5.2".localize(), "answer2.5.3".localize(), "answer2.5.4".localize()]],
+         [1, 2, 1, 2, 1], 1),
     ]
+
+    private var isStep = 0
+    private var number = -1
+    private var result = 0
+
+    weak var delegate: ResultDelegate?
+
+    private var isChecked: Int = -1 {
+        didSet {
+            if view1.layer.borderWidth != 0 || view2.layer.borderWidth != 0 || view3.layer.borderWidth != 0 || view4.layer.borderWidth != 0 {
+                nextButton.alpha = 1
+            } else {
+                nextButton.alpha = 0.5
+            }
+        }
+    }
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -230,20 +273,81 @@ class QuizController: UIViewController, UIScrollViewDelegate {
     }
 }
 
+extension QuizController {
+    @objc private func tapButtonNext() {
+        if isChecked == lessonsArray[number].2[isStep] {
+            result += 1
+        }
+        if isStep != 4 && nextButton.alpha == 1 {
+            isStep += 1
+            questionLbl.text = lessonsArray[number].0[isStep]
+            answerLbl1.text = lessonsArray[number].1[isStep][0]
+            answerLbl2.text = lessonsArray[number].1[isStep][1]
+            answerLbl3.text = lessonsArray[number].1[isStep][2]
+            answerLbl4.text = lessonsArray[number].1[isStep][3]
+
+            view1.layer.borderWidth = 0
+            view2.layer.borderWidth = 0
+            view3.layer.borderWidth = 0
+            view4.layer.borderWidth = 0
+
+            nextButton.alpha = 0.5
+        } else {
+            let vc = ResultController()
+            navigationController?.pushViewController(vc, animated: false)
+            self.delegate = vc
+            self.delegate?.updateQuiz(result: result, title: labelTitle.text)
+        }
+    }
+
+    @objc func btnClickCheck(_ sender: UIButton) {
+        switch (sender) {
+        case view1:
+            view1.layer.borderWidth = 1
+            view2.layer.borderWidth = 0
+            view3.layer.borderWidth = 0
+            view4.layer.borderWidth = 0
+            isChecked = 0
+        case view2:
+            view2.layer.borderWidth = 1
+            view1.layer.borderWidth = 0
+            view3.layer.borderWidth = 0
+            view4.layer.borderWidth = 0
+            isChecked = 1
+        case view3:
+            view3.layer.borderWidth = 1
+            view2.layer.borderWidth = 0
+            view1.layer.borderWidth = 0
+            view4.layer.borderWidth = 0
+            isChecked = 2
+        case view4:
+            view4.layer.borderWidth = 1
+            view2.layer.borderWidth = 0
+            view3.layer.borderWidth = 0
+            view1.layer.borderWidth = 0
+            isChecked = 3
+        default: break
+        }
+    }
+}
+
 extension QuizController: QuizDelegate {
     func updateQuiz(title: String, num: Int) {
         labelTitle.text = title
+        number = num
         switch num {
-//        case 0:
-//            labelTitleLarge.text = lessonsArray[0].0
-//            labelBlue.text = lessonsArray[0].1
-//            labelMain1.text = lessonsArray[0].2
-//            labelMain2.text = lessonsArray[0].3
-//        case 1:
-//            labelTitleLarge.text = lessonsArray[1].0
-//            labelBlue.text = lessonsArray[1].1
-//            labelMain1.text = lessonsArray[1].2
-//            labelMain2.text = lessonsArray[1].3
+        case 0:
+            questionLbl.text = lessonsArray[num].0[0]
+            answerLbl1.text = lessonsArray[num].1[0][0]
+            answerLbl2.text = lessonsArray[num].1[0][1]
+            answerLbl3.text = lessonsArray[num].1[0][2]
+            answerLbl4.text = lessonsArray[num].1[0][3]
+        case 1:
+            questionLbl.text = lessonsArray[num].0[0]
+            answerLbl1.text = lessonsArray[num].1[0][0]
+            answerLbl2.text = lessonsArray[num].1[0][1]
+            answerLbl3.text = lessonsArray[num].1[0][2]
+            answerLbl4.text = lessonsArray[num].1[0][3]
         default: break
         }
     }

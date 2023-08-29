@@ -225,6 +225,10 @@ class LessonController: UIViewController, UIScrollViewDelegate {
 
 extension LessonController {
     @objc private func pop() {
+        var score = UserDefaults.standard.integer(forKey: "score")
+        score += 200
+        UserDefaults.standard.set(score, forKey: "score")
+        
         navigationController?.popViewController(animated: false)
     }
 }

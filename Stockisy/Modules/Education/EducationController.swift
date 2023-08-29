@@ -360,6 +360,25 @@ class EducationController: UIViewController, UIScrollViewDelegate {
         scrollView.updateContentView()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let score = UserDefaults.standard.integer(forKey: "score")
+        var slash = 150
+        switch score {
+        case 0...150:
+            slash = 150
+            levelTitle.text = "Level".localize() + " 1"
+        case 200...599:
+            slash = 600
+            levelTitle.text = "Level".localize() + " 2"
+        case 600...1000:
+            slash = 1000
+            levelTitle.text = "Level".localize() + " 3"
+        default: break
+        }
+        scoreTitle.text = "\(UserDefaults.standard.integer(forKey: "score")) / \(slash)"
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(red: 0.103, green: 0.121, blue: 0.196, alpha: 1)

@@ -24,6 +24,10 @@ class LoadController: UIViewController {
         setupViews()
         makeConstraints()
 
+        if UserDefaults.standard.integer(forKey: "score") == 0 {
+            UserDefaults.standard.set(0, forKey: "score")
+        }
+
         DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
             self.nextVC()
         })
