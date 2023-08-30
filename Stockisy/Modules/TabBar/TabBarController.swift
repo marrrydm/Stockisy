@@ -9,6 +9,8 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         self.tabBar.backgroundColor = UIColor(red: 0.102, green: 0.122, blue: 0.196, alpha: 1)
         self.tabBar.tintColor = UIColor(red: 0.102, green: 0.122, blue: 0.196, alpha: 1)
         self.tabBar.barTintColor = UIColor(red: 0.102, green: 0.122, blue: 0.196, alpha: 1)
+        self.tabBar.layer.borderWidth = 1
+        self.tabBar.layer.borderColor = UIColor(red: 0.149, green: 0.176, blue: 0.278, alpha: 1).cgColor
 
         let appearance = UITabBarItem.appearance()
         let attributes = [
@@ -36,7 +38,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
 
         educationController.tabBarItem = educationControllerItem
 
-        let toolsController = ToolsController()
+        let toolsController = UINavigationController(rootViewController: ToolsController())
         let toolsControllerItem = UITabBarItem(title: "tabbar.tools".localize(), image: UIImage(named: "TabBartools")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "TabBartools_selected")?.withRenderingMode(.alwaysOriginal))
 
         toolsController.tabBarItem = toolsControllerItem

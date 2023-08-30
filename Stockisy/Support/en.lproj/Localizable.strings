@@ -20,6 +20,9 @@
 "How to choose dividends" = "How to choose dividends";
 "What are Daily Pivot Points" = "What are Daily Pivot Points";
 "More chapters to be added soon" = "More chapters to be added soon";
+"World Central Banks" = "World Central Banks";
+"Daily Pivot Points" = "Daily Pivot Points";
+"Dividend Calendar" = "Dividend Calendar";
 "Open" = "Open";
 "Continue" = "Continue";
 "Back" = "Back";
@@ -78,3 +81,37 @@
 
 "res1" = "You answered";
 "res2" = "questions correctly";
+
+"account.policy" = "Privacy Policy";
+"account.terms" = "Terms of Use";
+
+"Best dividend stock" = "Best dividend stock";
+"Daily Pivot Points" = "Daily Pivot Points";
+"World Central Banks" = "World Central Banks";
+
+"Federal Reserve" = "Federal Reserve";
+"(FED)" = "(FED)";
+"European Caentral Bank" = "European Caentral Bank";
+"(ECB)" = "(ECB)";
+"Bank of England" = "Bank of England";
+"(BOE)" = "(BOE)";
+"Swiss National Bank" = "Swiss National Bank";
+"Reserve Bank of Australia" = "Reserve Bank of Australia";
+"(RBA)" = "(RBA)";
+"Bank of Canada" = "Bank of Canada";
+"(BOC)" = "(BOC)";
+"Reserve Bank of New Zealand" = "Reserve Bank of New Zealand";
+"(RBA)" = "(RBA)";
+"Bank of Japan" = "Bank of Japan";
+"(BOJ)" = "(BOJ)";
+"Central Bank of the Russian Federation" = "Central Bank of the Russian Federation";
+"(CBR)" = "(CBR)";
+"Reserve Bank of India" = "Reserve Bank of India";
+"(RBI)" = "(RBI)";
+"People's Bank of China" = "People's Bank of China";
+"(PBOC)" = "(PBOC)";
+"People's Bank of Brazil" = "People's Bank of Brazil";
+"(BCB)" = "(BCB)";
+"Current rate" = "Current rate";
+"Next Meeting" = "Next Meeting";
+"last Change" = "Last Change";

@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "australian-antarctic-territory.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

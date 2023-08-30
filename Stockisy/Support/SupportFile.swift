@@ -8,6 +8,14 @@ public extension UIView {
     }
 }
 
+public extension UIStackView {
+    func addArrangedSubviews(_ views: UIView...) {
+        for view in views {
+            addArrangedSubview(view)
+        }
+    }
+}
+
 extension String {
     func localize() -> String {
         return NSLocalizedString(self, comment: "")
