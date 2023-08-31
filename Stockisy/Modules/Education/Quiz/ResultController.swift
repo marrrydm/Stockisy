@@ -69,6 +69,9 @@ class ResultController: UIViewController {
         return nextButton
     }()
 
+    private var resultVal = 0
+    private var number = 0
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(red: 0.103, green: 0.121, blue: 0.196, alpha: 1)
@@ -113,17 +116,36 @@ class ResultController: UIViewController {
 }
 
 extension ResultController: ResultDelegate {
-    func updateQuiz(result: Int, title: String?) {
+    func updateQuiz(result: Int, title: String?, num: Int, numSection: Int) {
         labelTitle.text = title
         resLblNum.text = "\(result)/5"
+        resultVal = result
+        number = numSection
     }
 }
 
 extension ResultController {
     @objc private func pop() {
-        var score = UserDefaults.standard.integer(forKey: "score")
-        score += 200
-        UserDefaults.standard.set(score, forKey: "score")
+        var savedNumbers = UserDefaults.standard.array(forKey: "arrLessons") as? [Int]
+        let old = savedNumbers
+        savedNumbers?.removeAll(where: { $0 == number })
+        if savedNumbers != old {
+            UserDefaults.standard.set(savedNumbers, forKey: "arrLessons")
+
+            var score = UserDefaults.standard.integer(forKey: "score")
+            score += (40 * resultVal)
+            UserDefaults.standard.set(score, forKey: "score")
+
+            if number == 0 {
+                if UserDefaults.standard.integer(forKey: "score1") == 0 {
+                    UserDefaults.standard.set((40 * resultVal), forKey: "score1")
+                }
+            } else {
+                if UserDefaults.standard.integer(forKey: "score2") == 0 {
+                    UserDefaults.standard.set((40 * resultVal), forKey: "score2")
+                }
+            }
+        }
 
         navigationController?.popToRootViewController(animated: false)
     }

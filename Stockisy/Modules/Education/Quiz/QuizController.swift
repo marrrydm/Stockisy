@@ -1,7 +1,7 @@
 import UIKit
 
 protocol ResultDelegate: AnyObject {
-    func updateQuiz(result: Int, title: String?)
+    func updateQuiz(result: Int, title: String?, num: Int, numSection: Int)
 }
 
 class QuizController: UIViewController, UIScrollViewDelegate {
@@ -152,6 +152,8 @@ class QuizController: UIViewController, UIScrollViewDelegate {
         return nextButton
     }()
 
+    private var numberSection = 0
+
     private var lessonsArray: [([String], [[String]], [Int], Int)] =
     [
         (["qiestion1.1".localize(), "qiestion1.2".localize(), "qiestion1.3".localize(), "qiestion1.4".localize(), "qiestion1.5".localize()],
@@ -296,7 +298,7 @@ extension QuizController {
             let vc = ResultController()
             navigationController?.pushViewController(vc, animated: false)
             self.delegate = vc
-            self.delegate?.updateQuiz(result: result, title: labelTitle.text)
+            self.delegate?.updateQuiz(result: result, title: labelTitle.text, num: number, numSection: numberSection)
         }
     }
 
@@ -332,9 +334,10 @@ extension QuizController {
 }
 
 extension QuizController: QuizDelegate {
-    func updateQuiz(title: String, num: Int) {
+    func updateQuiz(title: String, num: Int, numSection: Int) {
         labelTitle.text = title
         number = num
+        numberSection = numSection
         switch num {
         case 0:
             questionLbl.text = lessonsArray[num].0[0]

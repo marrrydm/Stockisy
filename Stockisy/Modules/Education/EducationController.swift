@@ -1,11 +1,11 @@
 import UIKit
 
 protocol EduDelegate: AnyObject {
-    func updateEdu(title: String, num: Int)
+    func updateEdu(title: String, num: Int, numSection: Int)
 }
 
 protocol QuizDelegate: AnyObject {
-    func updateQuiz(title: String, num: Int)
+    func updateQuiz(title: String, num: Int, numSection: Int)
 }
 
 class EducationController: UIViewController, UIScrollViewDelegate {
@@ -76,12 +76,13 @@ class EducationController: UIViewController, UIScrollViewDelegate {
 
     private lazy var nextButton1: UIButton = {
         let nextButton = UIButton()
-        nextButton.backgroundColor = UIColor(red: 0, green: 0.478, blue: 1, alpha: 1)
+        nextButton.setTitle("Done".localize(), for: .normal)
+        nextButton.backgroundColor = UIColor(red: 0.204, green: 0.78, blue: 0.349, alpha: 1)
         nextButton.layer.cornerRadius = 10
         nextButton.setTitleColor(.white, for: .normal)
-        nextButton.setTitle("Open".localize(), for: .normal)
         nextButton.titleLabel?.font = .systemFont(ofSize: 13, weight: .semibold)
         nextButton.addTarget(self, action: #selector(nextVC2), for: .touchUpInside)
+        nextButton.tag = 0
 
         return nextButton
     }()
@@ -128,12 +129,13 @@ class EducationController: UIViewController, UIScrollViewDelegate {
 
     private lazy var nextButton2: UIButton = {
         let nextButton = UIButton()
-        nextButton.backgroundColor = UIColor(red: 0, green: 0.478, blue: 1, alpha: 1)
+        nextButton.setTitle("Done".localize(), for: .normal)
+        nextButton.backgroundColor = UIColor(red: 0.204, green: 0.78, blue: 0.349, alpha: 1)
         nextButton.layer.cornerRadius = 10
         nextButton.setTitleColor(.white, for: .normal)
-        nextButton.setTitle("Open".localize(), for: .normal)
         nextButton.titleLabel?.font = .systemFont(ofSize: 13, weight: .semibold)
         nextButton.addTarget(self, action: #selector(nextVC2), for: .touchUpInside)
+        nextButton.tag = 1
 
         return nextButton
     }()
@@ -180,12 +182,13 @@ class EducationController: UIViewController, UIScrollViewDelegate {
 
     private lazy var nextButton3: UIButton = {
         let nextButton = UIButton()
-        nextButton.backgroundColor = UIColor(red: 0, green: 0.478, blue: 1, alpha: 1)
+        nextButton.setTitle("Done".localize(), for: .normal)
+        nextButton.backgroundColor = UIColor(red: 0.204, green: 0.78, blue: 0.349, alpha: 1)
         nextButton.layer.cornerRadius = 10
         nextButton.setTitleColor(.white, for: .normal)
-        nextButton.setTitle("Open".localize(), for: .normal)
         nextButton.titleLabel?.font = .systemFont(ofSize: 13, weight: .semibold)
         nextButton.addTarget(self, action: #selector(nextVC), for: .touchUpInside)
+        nextButton.tag = 2
 
         return nextButton
     }()
@@ -232,12 +235,13 @@ class EducationController: UIViewController, UIScrollViewDelegate {
 
     private lazy var nextButton4: UIButton = {
         let nextButton = UIButton()
-        nextButton.backgroundColor = UIColor(red: 0, green: 0.478, blue: 1, alpha: 1)
         nextButton.layer.cornerRadius = 10
         nextButton.setTitleColor(.white, for: .normal)
-        nextButton.setTitle("Open".localize(), for: .normal)
+        nextButton.setTitle("Done".localize(), for: .normal)
+        nextButton.backgroundColor = UIColor(red: 0.204, green: 0.78, blue: 0.349, alpha: 1)
         nextButton.titleLabel?.font = .systemFont(ofSize: 13, weight: .semibold)
         nextButton.addTarget(self, action: #selector(nextVC), for: .touchUpInside)
+        nextButton.tag = 3
 
         return nextButton
     }()
@@ -284,12 +288,13 @@ class EducationController: UIViewController, UIScrollViewDelegate {
 
     private lazy var nextButton5: UIButton = {
         let nextButton = UIButton()
-        nextButton.backgroundColor = UIColor(red: 0, green: 0.478, blue: 1, alpha: 1)
         nextButton.layer.cornerRadius = 10
         nextButton.setTitleColor(.white, for: .normal)
-        nextButton.setTitle("Open".localize(), for: .normal)
+        nextButton.setTitle("Done".localize(), for: .normal)
+        nextButton.backgroundColor = UIColor(red: 0.204, green: 0.78, blue: 0.349, alpha: 1)
         nextButton.titleLabel?.font = .systemFont(ofSize: 13, weight: .semibold)
         nextButton.addTarget(self, action: #selector(nextVC), for: .touchUpInside)
+        nextButton.tag = 4
 
         return nextButton
     }()
@@ -368,7 +373,7 @@ class EducationController: UIViewController, UIScrollViewDelegate {
         case 0...150:
             slash = 150
             levelTitle.text = "Level".localize() + " 1"
-        case 200...599:
+        case 151...599:
             slash = 600
             levelTitle.text = "Level".localize() + " 2"
         case 600...1000:
@@ -377,6 +382,19 @@ class EducationController: UIViewController, UIScrollViewDelegate {
         default: break
         }
         scoreTitle.text = "\(UserDefaults.standard.integer(forKey: "score")) / \(slash)"
+
+        actionBtn()
+
+        let score1 = UserDefaults.standard.integer(forKey: "score1")
+        let score2 = UserDefaults.standard.integer(forKey: "score2")
+        let score3 = UserDefaults.standard.integer(forKey: "score3")
+        let score4 = UserDefaults.standard.integer(forKey: "score4")
+        let score5 = UserDefaults.standard.integer(forKey: "score5")
+        scoreTitle1.text = "\(score1) / 200"
+        scoreTitle2.text = "\(score2) / 200"
+        scoreTitle3.text = "\(score3) / 200"
+        scoreTitle4.text = "\(score4) / 200"
+        scoreTitle5.text = "\(score5) / 200"
     }
 
     override func viewDidLoad() {
@@ -599,7 +617,7 @@ extension EducationController {
         }
 
         self.delegate = vc
-        self.delegate?.updateEdu(title: title, num: num)
+        self.delegate?.updateEdu(title: title, num: num, numSection: sender.tag)
     }
 
     @objc private func nextVC2(sender: UIButton) {
@@ -617,6 +635,41 @@ extension EducationController {
         }
 
         self.delegateQuiz = vc
-        self.delegateQuiz?.updateQuiz(title: title, num: num)
+        self.delegateQuiz?.updateQuiz(title: title, num: num, numSection: sender.tag)
+    }
+
+    private func actionBtn() {
+        nextButton1.setTitle("Done".localize(), for: .normal)
+        nextButton1.backgroundColor = UIColor(red: 0.204, green: 0.78, blue: 0.349, alpha: 1)
+        nextButton2.setTitle("Done".localize(), for: .normal)
+        nextButton2.backgroundColor = UIColor(red: 0.204, green: 0.78, blue: 0.349, alpha: 1)
+        nextButton3.setTitle("Done".localize(), for: .normal)
+        nextButton3.backgroundColor = UIColor(red: 0.204, green: 0.78, blue: 0.349, alpha: 1)
+        nextButton4.setTitle("Done".localize(), for: .normal)
+        nextButton4.backgroundColor = UIColor(red: 0.204, green: 0.78, blue: 0.349, alpha: 1)
+        nextButton5.setTitle("Done".localize(), for: .normal)
+        nextButton5.backgroundColor = UIColor(red: 0.204, green: 0.78, blue: 0.349, alpha: 1)
+
+        let savedNumbers = UserDefaults.standard.array(forKey: "arrLessons") as? [Int]
+        for numbers in savedNumbers ?? [] {
+            switch numbers {
+            case 0:
+                nextButton1.backgroundColor = UIColor(red: 0, green: 0.478, blue: 1, alpha: 1)
+                nextButton1.setTitle("Open".localize(), for: .normal)
+            case 1:
+                nextButton2.backgroundColor = UIColor(red: 0, green: 0.478, blue: 1, alpha: 1)
+                nextButton2.setTitle("Open".localize(), for: .normal)
+            case 2:
+                nextButton3.backgroundColor = UIColor(red: 0, green: 0.478, blue: 1, alpha: 1)
+                nextButton3.setTitle("Open".localize(), for: .normal)
+            case 3:
+                nextButton4.backgroundColor = UIColor(red: 0, green: 0.478, blue: 1, alpha: 1)
+                nextButton4.setTitle("Open".localize(), for: .normal)
+            case 4:
+                nextButton5.backgroundColor = UIColor(red: 0, green: 0.478, blue: 1, alpha: 1)
+                nextButton5.setTitle("Open".localize(), for: .normal)
+            default: break
+            }
+        }
     }
 }

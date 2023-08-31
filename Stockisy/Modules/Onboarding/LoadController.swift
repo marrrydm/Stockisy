@@ -28,6 +28,10 @@ class LoadController: UIViewController {
             UserDefaults.standard.set(0, forKey: "score")
         }
 
+        if UserDefaults.standard.object(forKey: "arrLessons") == nil {
+            UserDefaults.standard.set([0, 1, 2, 3, 4], forKey: "arrLessons")
+        }
+
         DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
             self.nextVC()
         })

@@ -157,6 +157,8 @@ class LessonController: UIViewController, UIScrollViewDelegate {
          "In conclusion, Daily Pivot Points provide traders with valuable insights into potential price movements and areas of support and resistance. By incorporating Pivot Points into your trading strategy, you can make more informed decisions and improve your trading success. However, like any technical tool, Pivot Points should be used alongside other analysis techniques for a comprehensive trading approach.", 2)
     ]
 
+    private var numberSection = 0
+
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         scrollView.layoutIfNeeded()
@@ -225,16 +227,38 @@ class LessonController: UIViewController, UIScrollViewDelegate {
 
 extension LessonController {
     @objc private func pop() {
-        var score = UserDefaults.standard.integer(forKey: "score")
-        score += 200
-        UserDefaults.standard.set(score, forKey: "score")
-        
+
+        var savedNumbers = UserDefaults.standard.array(forKey: "arrLessons") as? [Int]
+        let old = savedNumbers
+        savedNumbers?.removeAll(where: { $0 == numberSection })
+        if savedNumbers != old {
+            UserDefaults.standard.set(savedNumbers, forKey: "arrLessons")
+            var score = UserDefaults.standard.integer(forKey: "score")
+            score += 200
+            UserDefaults.standard.set(score, forKey: "score")
+
+            if numberSection == 2 {
+                if UserDefaults.standard.integer(forKey: "score3") == 0 {
+                    UserDefaults.standard.set(200, forKey: "score3")
+                }
+            } else if numberSection == 3 {
+                if UserDefaults.standard.integer(forKey: "score4") == 0 {
+                    UserDefaults.standard.set(200, forKey: "score4")
+                }
+            } else {
+                if UserDefaults.standard.integer(forKey: "score5") == 0 {
+                    UserDefaults.standard.set(200, forKey: "score5")
+                }
+            }
+        }
+
         navigationController?.popViewController(animated: false)
     }
 }
 
 extension LessonController: EduDelegate {
-    func updateEdu(title: String, num: Int) {
+    func updateEdu(title: String, num: Int, numSection: Int) {
+        numberSection = numSection
         labelTitle.text = title
         switch num {
         case 0:
