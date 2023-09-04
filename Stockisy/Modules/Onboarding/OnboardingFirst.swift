@@ -1,6 +1,4 @@
-import AppsFlyerLib
 import AppTrackingTransparency
-import FirebaseAnalytics
 import SnapKit
 import UIKit
 
@@ -65,26 +63,7 @@ class OnboardingFirst: UIViewController {
         labelTitle.text = OnboardingViewModel.init().items?[0].title
         contentLabel.text = OnboardingViewModel.init().items?[0].content
     }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        AppsFlyerLib.shared().logEvent("onboarding_start", withValues: nil)
-        Analytics.logEvent("onboarding_start", parameters: nil)
-
-        ATTrackingManager.requestTrackingAuthorization { status in
-            switch status {
-            case .authorized:
-                print("The user has granted access.")
-            case .denied, .restricted:
-                print("The user has denied access.")
-            case .notDetermined:
-                print("The user has not yet received an authorization request.")
-            @unknown default:
-                break
-            }
-        }
-    }
-
+    
     private func setupViews() {
         view.addSubviews(bgView, nextButton)
         bgView.addSubviews(logoView, labelTitle, contentLabel)
@@ -121,8 +100,23 @@ class OnboardingFirst: UIViewController {
 
 extension OnboardingFirst {
     @objc private func nextVC() {
-        let vc = OnboardingSecond()
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: false)
+        ATTrackingManager.requestTrackingAuthorization { status in
+            DispatchQueue.main.async { [weak self] in
+                let vc = OnboardingSecond()
+                vc.modalPresentationStyle = .fullScreen
+                self?.present(vc, animated: false)
+            }
+            
+            switch status {
+            case .authorized:
+                print("The user has granted access.")
+            case .denied, .restricted:
+                print("The user has denied access.")
+            case .notDetermined:
+                print("The user has not yet received an authorization request.")
+            @unknown default:
+                break
+            }
+        }
     }
 }

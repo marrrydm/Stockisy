@@ -1,5 +1,3 @@
-import AppsFlyerLib
-import FirebaseAnalytics
 import OneSignal
 import UIKit
 
@@ -101,9 +99,6 @@ class OnboardingThird: UIViewController {
 
 extension OnboardingThird {
     @objc private func nextVC() {
-        AppsFlyerLib.shared().logEvent("onboarding_finish", withValues: nil)
-        Analytics.logEvent("onboarding_finish", parameters: nil)
-
         OneSignal.promptForPushNotifications(userResponse: { accepted in
             let vc = TabBarController()
             vc.modalPresentationStyle = .fullScreen

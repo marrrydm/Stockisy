@@ -7,8 +7,5 @@ target 'Stockisy' do
 
   # Pods for Stockisy
   pod 'SnapKit'
-  pod 'Firebase/Analytics'
-  pod 'AppsFlyerFramework'
-
 
 end

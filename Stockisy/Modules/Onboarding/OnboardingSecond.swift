@@ -1,5 +1,3 @@
-import AppsFlyerLib
-import FirebaseAnalytics
 import StoreKit
 import UIKit
 
@@ -153,13 +151,6 @@ class OnboardingSecond: UIViewController {
         stars2.image = OnboardingViewModel.init().items?[1].images[2]
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
-            SKStoreReviewController.requestReview(in: scene)
-        }
-    }
-
     private func setupViews() {
         view.addSubviews(bgView, nextButton)
         bgView.addSubviews(labelTitle, contentLabel, view1, view2)
@@ -250,6 +241,10 @@ class OnboardingSecond: UIViewController {
 
 extension OnboardingSecond {
     @objc private func nextVC() {
+        if let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
+            SKStoreReviewController.requestReview(in: scene)
+        }
+        
         let vc = OnboardingThird()
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: false)
