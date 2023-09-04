@@ -49,7 +49,7 @@ class LoadController: UIViewController {
 
         logoView.snp.makeConstraints { make in
             make.centerX.centerY.equalToSuperview()
-            make.height.width.equalTo(81)
+            make.height.width.equalTo(107)
         }
     }
 }
